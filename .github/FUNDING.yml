@@ -1,5 +1,2 @@
 # These are supported funding model platforms
-github: [octocat, surftocat]
-patreon: octocat
-tidelift: npm/octo-package
-custom: ["https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NJTFGFG7QKAGG&item_name=Nos+ajude+a+dar+continuidade+ao+projeto.&currency_code=BRL&source=url"]
+custom: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NJTFGFG7QKAGG&item_name=Nos+ajude+a+dar+continuidade+ao+projeto.&currency_code=BRL&source=url
