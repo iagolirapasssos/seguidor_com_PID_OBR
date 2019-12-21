@@ -1,2 +1,5 @@
 # These are supported funding model platforms
-custom: # Replace with up to 4 custom sponsorship URLs e.g., [https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NJTFGFG7QKAGG&item_name=Nos+ajude+a+dar+continuidade+ao+projeto.&currency_code=BRL&source=url]
+github: [octocat, surftocat]
+patreon: octocat
+tidelift: npm/octo-package
+custom: ["https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NJTFGFG7QKAGG&item_name=Nos+ajude+a+dar+continuidade+ao+projeto.&currency_code=BRL&source=url"]
