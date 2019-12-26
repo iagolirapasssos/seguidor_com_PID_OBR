@@ -81,6 +81,8 @@ long lerSensoresCor()
      IR4 > 0 && IR4 < 30 &&
      IR5 > 30 && IR5 < 40)
   {
+    LedsAlerta(2, 200);
+    pausa(500);
     return 1;
   } 
   else if(
@@ -89,6 +91,8 @@ long lerSensoresCor()
      IR4 > 0 && IR4 < 30 &&
      IR5 > 30 && IR5 < 40)
   {
+    LedsAlerta(2, 150);
+    pausa(500);
     return 1;
   }
   else if(
@@ -97,6 +101,8 @@ long lerSensoresCor()
      IR4 > 30 && IR4 < 40 &&
      IR5 > 30 && IR5 < 40)
   {
+    LedsAlerta(2, 150);
+    pausa(500);
     return 1;
   }
   //Verde direita
@@ -105,6 +111,8 @@ long lerSensoresCor()
      IR4 > 0 && IR4 < 30 &&
      IR5 > 0 && IR5 < 30)
   {
+    LedsAlerta(2, 150);
+    pausa(500);
     return 2;
   } 
   else if(IR1 > 0 && IR1 < 25 &&
@@ -112,6 +120,8 @@ long lerSensoresCor()
      IR4 > 0 && IR4 < 30 &&
      IR5 > 200)
   {
+    LedsAlerta(2, 150);
+    pausa(500);
     return 2;
   }
   else if(IR1 > 25 && IR1 < 30 &&
@@ -119,8 +129,11 @@ long lerSensoresCor()
      IR4 > 0 && IR4 < 30 &&
      IR5 > 0 && IR5 < 30)
   {
+    LedsAlerta(2, 150);
+    pausa(500);
     return 2;
   }
+  LedsAlerta(4, 150);
 }
 
 
@@ -254,15 +267,6 @@ void curvas()
   switch (lerSensoresCor())
   {
     case 1:
-        mover(0, 0);
-        pausa(500);
-        controle(1, 0, 1.0);
-        mover(0, 0);
-        pausa(500);
-     if(lerSensoresCor() == 1)
-      {
-        LedsAlerta(2, 150);
-        pausa(500);
         //Frente
           mover(0, 0);
           pausa(500);
@@ -273,21 +277,9 @@ void curvas()
           controle(0, 1, 15);
           mover(0, 0);
           pausa(500);
-      }
       break;
       
     case 2:
-      //Frente
-        mover(0, 0);
-        pausa(500);
-        controle(1, 0, 1.0);
-        mover(0, 0);
-        pausa(500);
-      
-      if(lerSensoresCor() == 2)
-      {
-        LedsAlerta(2, 150);
-        pausa(500);
         //Frente
           mover(0, 0);
           pausa(500);
@@ -298,7 +290,6 @@ void curvas()
           controle(0, -1, 15);
           mover(0, 0);
           pausa(500);
-      }
       break;
      default:
       LedsAlerta(4, 150);
