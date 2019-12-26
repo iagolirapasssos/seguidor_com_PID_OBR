@@ -16,6 +16,9 @@
 #define LedVerde 11
 #define LedAzul 10
 
+//Sensore IR
+int IR1, IR2, IR3, IR4, IR5;
+
 //Sensores de cor
 #define SensorCorDireita A9
 #define SensorCorEsquerda A8
@@ -24,3 +27,30 @@
 double UltimoError = 0.0;
 double motorD, motorE;
 double P, I = 0.0, D, ganho;
+
+//Velocidade (PWM) da ponte H: 12 V
+int vd = 80;    //Direita
+int ve = 80;    //Esquerda
+int vf = 90;    //Frente
+int vr = 90;    //Ré
+int vd90 = 100; //Direita 90
+int ve90 = 100; //Esquerda 90
+
+//PID
+/*
+   * Tabela de valores de kP, kI e kD para 
+   * ddps diferentes da bateria
+   * 
+   * +--------------+----+----+----+-----+--------------------+
+   * |    ddp (V)   | kP | kI | kD | PWM | Média dos sensores |
+   * +--------------+----+----+----+-----+--------------------+
+   * |12.20 - 12.50 |1.20|0.80|60.0| 60  |        100         |
+   * +--------------+----+----+----+-----+--------------------+
+   * |10.50 - 11.93 |1.20|0.80|10.0| 60  |        100         |
+   * +--------------+----+----+----+-----+--------------------+
+   */
+  int kP = 1.2;
+  int kI = 0.0;//0.1;
+  int kD = 00.0;//1.0;
+  int PWM = 40;
+  int media = 100;
