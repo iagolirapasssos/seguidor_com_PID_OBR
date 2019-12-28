@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 void LedsAlerta(int RGB, int power)
 {
   switch (RGB)
@@ -65,13 +67,13 @@ int lerSensoresCor()
   long  Erro1 = abs(IR1 - IR2); //Sensores IR Direita
   long  Erro2 = abs(IR4 - IR5); //Sensores IR Esquerda
 
-  Serial.print(Erro1);
-  Serial.print(", ");
-  Serial.print(Erro2);
-  Serial.println("");
+//  Serial.print(Erro1);
+//  Serial.print(", ");
+//  Serial.print(Erro2);
+//  Serial.println("");
   
   //Verde esquerdo
-  if(Erro2 >= 8 && Erro2 < 20 && Erro1 < 11 && IR3 > 300)
+  if(Erro2 > 10 && Erro2 < 14 && Erro1 < 13 && IR3 > 300)
   {
     Serial.println("Verde E1");
     LedsAlerta(2, 150);
@@ -85,8 +87,6 @@ int lerSensoresCor()
   {
     Serial.println("Curva 90 a esquerda");
     LedsAlerta(3, 150);
-    pausa(50);
-    LedsAlerta(4, 0);
     return 11;
   }
     
@@ -105,8 +105,6 @@ int lerSensoresCor()
   {
     Serial.println("Curva 90 a direita");
     LedsAlerta(3, 150);
-    pausa(50);
-    LedsAlerta(4, 0);
     return 22;
   }
 
@@ -115,8 +113,6 @@ int lerSensoresCor()
   {
     Serial.println("Encruzilhada");
     LedsAlerta(3, 150);
-    pausa(50);
-    LedsAlerta(4, 0);
     return 111;
   }
 
@@ -125,14 +121,14 @@ int lerSensoresCor()
   {
     Serial.println("T");
     LedsAlerta(3, 150);
-    pausa(50);
-    LedsAlerta(4, 0);
     return 120;
   }
   else
   {
     return 999;
   }
+
+  LedsAlerta(4, 0);
 }
 
 
@@ -235,18 +231,20 @@ void controle(int x, int y, int n){
   }
 }
 
-int UltimoError = 0.0;
+int UltimoError = 0;
+int Ilast = 0;
 void PID (double kP, double kI, double kD, double PWM, int media) 
 {
   int erro = lerSensoresLinha() - media;
   
   P = kP * erro;
-  I = kI * (I + erro);
+  I = Ilast + kI * (I + erro);
   D = kD * (erro - UltimoError);
 
   ganho = P + I + D;
   
   UltimoError = erro;
+  Ilast = I;
 
   motorE = PWM + ganho; //Motor Esquerdo
   motorD = PWM - ganho; //Motor Direito
@@ -273,74 +271,89 @@ int x = lerSensoresCor();
           mover(60, 60);
           pausa(200);
           break;
+    case 120:
+          mover(60, 60);
+          pausa(200);
+          break;
     case 11:
         //Frente
           mover(0, 0);
           pausa(300);
           
-          controle(1, 0, 4.0);
+          controle(1, 0, 5.0);
           mover(0, 0);
           pausa(300);
         
         //Esquerda 90
-          //controle(0, 1, 14);
-          PID(kP, kI, kD, PWM, media);
+          controle(0, 1, 17);
+          mover(0, 0);
+          pausa(300);
+          //PID(kP, kI, kD, PWM, media);
         //Ré
           mover(0, 0);
           pausa(300);
-          controle(-1, 0, 3);
+          controle(-1, 0, 2);
+          mover(0, 0);
+          pausa(300);
           break;
     case 1:
         Serial.println("Verde verde verde Esquerda");
         //Frente
-//          mover(0, 0);
-//          pausa(700);
-//          controle(1, 0, 5.0);
-//          mover(0, 0);
-//          pausa(500);
-//        //Esquerda 90
-//          controle(0, 1, 15);
-//          mover(0, 0);
-//          pausa(500);
-//        //Ré 
-//          mover(0, 0);
-//          pausa(500);
-//          controle(-1, 0, 5);
-//          break;
+          mover(0, 0);
+          pausa(300);
+          
+          controle(1, 0, 2.0);
+          mover(0, 0);
+          pausa(300);
+        
+        //Esquerda 90
+          controle(0, 1, 16);
+          mover(0, 0);
+          pausa(300);
+          //PID(kP, kI, kD, PWM, media);
+        //Ré
+          mover(0, 0);
+          pausa(300);
+          controle(-1, 0, 2);
+          mover(0, 0);
+          pausa(300);
+          break;
     case 2:
         Serial.println("Verde verde verde Direita");
+        mover(0, 0);
+          pausa(300);
         //Frente
-//          mover(0, 0);
-//          pausa(500);
-//          controle(1, 0, 4.0);
-//          mover(0, 0);
-//          pausa(500);
-//        //Direita 90
-//          controle(0, -1, 15);
-//          mover(0, 0);
-//          pausa(500);
-//        //Ré 
-//          mover(0, 0);
-//          pausa(500);
-//          controle(-1, 0, 5);
-//          break;
+          controle(1, 0, 2);
+          mover(0, 0);
+          pausa(300);
+            
+        //Direita 90
+          controle(0, -1, 16);        
+          mover(0, 0);
+          pausa(300);
+          //PID(kP, kI, kD, PWM, media);
+        //Ré 
+          controle(-1, 0, 2);
+          mover(0, 0);
+          pausa(300);
+          break;
      case 22:
           mover(0, 0);
           pausa(300);
         //Frente
-          controle(1, 0, 4.0);
+          controle(1, 0, 2.0);
           mover(0, 0);
+          pausa(300);
             
         //Direita 90
-          //controle(0, -1, 14);        
-          PID(kP, kI, kD, PWM, media);
-        //Ré
+          controle(0, -1, 15);        
           mover(0, 0);
-          pausa(300); 
-          controle(-1, 0, 3);
+          pausa(300);
+          //PID(kP, kI, kD, PWM, media);
+        //Ré 
+          controle(-1, 0, 1);
           mover(0, 0);
+          pausa(300);
           break;
-      default:
-          mover(0, 0);
   }
 }

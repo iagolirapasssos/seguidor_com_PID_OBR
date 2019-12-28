@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 //Sensores IR de linha
 #define sensorDireita A2
 #define sensorDireitaMeio A1
@@ -30,10 +32,10 @@ double P, I = 0.0, D, ganho = 0.0;
 //Velocidade (PWM) da ponte H: 12 V
 int vd = 80;    //Direita
 int ve = 80;    //Esquerda
-int vf = 90;    //Frente
-int vr = 90;    //Ré
-int vd90 = 100; //Direita 90
-int ve90 = 100; //Esquerda 90
+int vf = 100;    //Frente
+int vr = 100;    //Ré
+int vd90 = 120; //Direita 90
+int ve90 = 120; //Esquerda 90
 
 //PID
 /*
@@ -49,7 +51,7 @@ int ve90 = 100; //Esquerda 90
    * +--------------+----+----+----+-----+--------------------+
    */
   int kP = 1.2;
-  int kI = 0.8; //0.01;
+  int kI = 0.1; //0.01;
   int kD = 10.0; //40.0;
   int PWM = 50;
   int media = 96;
