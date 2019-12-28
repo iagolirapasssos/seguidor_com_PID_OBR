@@ -26,24 +26,9 @@ void setup() {
 }
 
      
-void loop() {
-  //PID(kP, kI, kD, PWM, media);
- // curvas();
- lerSensoresCor();
-   Serial.print("IR1: ");
-   Serial.print(IR1);
-   Serial.print(", ");
-   Serial.print("IR2: ");
-   Serial.print(IR2);
-   Serial.print(", ");
-   Serial.print("IR3: ");
-   Serial.print(IR3);
-   Serial.print(", ");
-   Serial.print("IR4: ");
-   Serial.print(IR4);
-   Serial.print(", ");
-   Serial.print("IR5: ");
-   Serial.print(IR5);
-   Serial.println("");
-  //lerSensoresCor();
+void loop(){
+  //Serial.println(lerSensoresLinha());
+  curvas();
+  PID(kP, kI, kD, PWM, media);
+ //lerSensoresCor();
   }

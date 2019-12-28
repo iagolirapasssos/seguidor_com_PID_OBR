@@ -58,80 +58,74 @@ long SensoresDeCor()
   return (C1 + C2)/2;
 }
 
-long lerSensoresCor()
+int lerSensoresCor()
 {
   sensoresIR();
   
-  //long C1 = analogRead(SensorCorDireita);
-  //long C2 = analogRead(SensorCorEsquerda);
-  //long  Erro = abs(C1 - C2);
-  //int xE = IR4 + IR5;
-  //int xD = IR1 + IR2;
+  long  Erro1 = abs(IR1 - IR2); //Sensores IR Direita
+  long  Erro2 = abs(IR4 - IR5); //Sensores IR Esquerda
 
-  //Serial.print(IR3);
-  //Serial.print(", ");
-  //Serial.print(xD);
-  //Serial.print(", ");
-  //Serial.println(Erro);
-  //Serial.println("");
+  Serial.print(Erro1);
+  Serial.print(", ");
+  Serial.print(Erro2);
+  Serial.println("");
   
   //Verde esquerdo
-  if(IR1 > 0 && IR1 < 25 &&
-     IR2 > 0 && IR2 <= 30 &&
-     IR4 > 0 && IR4 < 30 &&
-     IR5 > 30 && IR5 < 40)
+  if(Erro2 >= 8 && Erro2 < 20 && Erro1 < 11 && IR3 > 300)
   {
-    LedsAlerta(2, 200);
-    pausa(500);
-    return 1;
-  } 
-  else if(
-     IR1 > 0 && IR1 < 25 &&
-     IR2 > 200 &&
-     IR4 > 0 && IR4 < 30 &&
-     IR5 > 30 && IR5 < 40)
-  {
+    Serial.println("Verde E1");
     LedsAlerta(2, 150);
-    pausa(500);
+    //pausa(50);
     return 1;
   }
-  else if(
-     IR1 > 0 && IR1 <= 25 &&
-     IR2 > 0 && IR2 <= 30 &&
-     IR4 > 30 && IR4 < 40 &&
-     IR5 > 30 && IR5 < 40)
+  
+  //Curva 90 a esquerda
+  if(Erro2 > 50 && Erro2 < 380 && Erro1 < 11 && IR3 < 40)
   {
-    LedsAlerta(2, 150);
-    pausa(500);
-    return 1;
+    Serial.println("Curva 90 a esquerda");
+    LedsAlerta(3, 150);
+    //pausa(50);
+    return 11;
   }
+    
   //Verde direita
-  else if(IR1 > 0 && IR1 < 25 &&
-     IR2 > 30 && IR2 < 60 &&
-     IR4 > 0 && IR4 < 30 &&
-     IR5 > 0 && IR5 < 30)
+  if(Erro1 > 18 && Erro1 < 35 && Erro2 < 8  && IR3 > 300)
   {
+    Serial.println("Verde D1");
     LedsAlerta(2, 150);
-    pausa(500);
-    return 2;
-  } 
-  else if(IR1 > 0 && IR1 < 25 &&
-     IR2 > 30 && IR2 < 60 &&
-     IR4 > 0 && IR4 < 30 &&
-     IR5 > 200)
-  {
-    LedsAlerta(2, 150);
-    pausa(500);
+    //pausa(50);
     return 2;
   }
-  else if(IR1 > 25 && IR1 < 30 &&
-     IR2 > 30 && IR2 < 60 &&
-     IR4 > 0 && IR4 < 30 &&
-     IR5 > 0 && IR5 < 30)
+
+  //Curva 90 a direita
+  if(Erro2 < 8 && Erro1 > 200 && Erro1 < 380 && IR3 < 40)
   {
-    LedsAlerta(2, 150);
-    pausa(500);
-    return 2;
+    Serial.println("Curva 90 a direita");
+    LedsAlerta(3, 150);
+    //pausa(50);
+    return 22;
+  }
+
+  //Encruzilhada
+  if(Erro2 > 50 && Erro1 > 200 && IR3 > 300)
+  {
+    Serial.println("Encruzilhada");
+    LedsAlerta(3, 150);
+    //pausa(50);
+    return 111;
+  }
+
+  //T
+  if(Erro2 > 50 && Erro1 > 200 && IR3 < 200)
+  {
+    Serial.println("T");
+    LedsAlerta(3, 150);
+    //pausa(50);
+    return 120;
+  }
+  else
+  {
+    return 999;
   }
   LedsAlerta(4, 150);
 }
@@ -163,7 +157,6 @@ void mover(int a, int b) {
     analogWrite(MotorDireitoTras, abs(b));
   }
 }
-
 
 
 void controle(int x, int y, int n){
@@ -237,7 +230,7 @@ void controle(int x, int y, int n){
   }
 }
 
-
+int UltimoError = 0.0;
 void PID (double kP, double kI, double kD, double PWM, int media) 
 {
   int erro = lerSensoresLinha() - media;
@@ -250,9 +243,9 @@ void PID (double kP, double kI, double kD, double PWM, int media)
   
   UltimoError = erro;
 
-  motorE = PWM - ganho; //Motor Esquerdo
-  motorD = PWM + ganho; //Motor Direito
-
+  motorE = PWM + ganho; //Motor Esquerdo
+  motorD = PWM - ganho; //Motor Direito
+  
   mover(motorE, motorD);
   
 }
@@ -260,40 +253,88 @@ void PID (double kP, double kI, double kD, double PWM, int media)
 
 void curvas()
 {
-  sensoresIR();
-  int xE = IR4 + IR5;
-  int xD = IR1 + IR2;
- 
-  switch (lerSensoresCor())
+  
+int x = lerSensoresCor(); 
+//Serial.print("x=");
+//Serial.print(x);
+//Serial.println("");
+  switch (x)
   {
-    case 1:
+    case 999:
+          LedsAlerta(4, 150);
+          //PID(kP, kI, kD, PWM, media);
+          break;
+    case 111:
+          mover(100, 100);
+          break;
+    case 11:
         //Frente
           mover(0, 0);
-          pausa(500);
-          controle(1, 0, 5.0);
-          mover(0, 0);
-          pausa(500);
-        //Esquerda 90
-          controle(0, 1, 15);
-          mover(0, 0);
-          pausa(500);
-      break;
-      
-    case 2:
-        //Frente
-          mover(0, 0);
-          pausa(500);
+          pausa(300);
+          
           controle(1, 0, 4.0);
           mover(0, 0);
-          pausa(500);
+          pausa(300);
+        
         //Esquerda 90
-          controle(0, -1, 15);
+          //controle(0, 1, 14);
+          PID(kP, kI, kD, PWM, media);
+        //Ré
           mover(0, 0);
-          pausa(500);
-      break;
-     default:
-      LedsAlerta(4, 150);
-      //PID(kP, kI, kD, PWM, media);
-      break;
+          pausa(300);
+          controle(-1, 0, 3);
+          break;
+    case 1:
+        Serial.println("Verde verde verde Esquerda");
+        //Frente
+//          mover(0, 0);
+//          pausa(700);
+//          controle(1, 0, 5.0);
+//          mover(0, 0);
+//          pausa(500);
+//        //Esquerda 90
+//          controle(0, 1, 15);
+//          mover(0, 0);
+//          pausa(500);
+//        //Ré 
+//          mover(0, 0);
+//          pausa(500);
+//          controle(-1, 0, 5);
+//          break;
+    case 2:
+        Serial.println("Verde verde verde Direita");
+        //Frente
+//          mover(0, 0);
+//          pausa(500);
+//          controle(1, 0, 4.0);
+//          mover(0, 0);
+//          pausa(500);
+//        //Direita 90
+//          controle(0, -1, 15);
+//          mover(0, 0);
+//          pausa(500);
+//        //Ré 
+//          mover(0, 0);
+//          pausa(500);
+//          controle(-1, 0, 5);
+//          break;
+     case 22:
+          mover(0, 0);
+          pausa(300);
+        //Frente
+          controle(1, 0, 4.0);
+          mover(0, 0);
+          pausa(300);
+            
+        //Direita 90
+          //controle(0, -1, 14);        
+          PID(kP, kI, kD, PWM, media);
+        //Ré
+          mover(0, 0);
+          pausa(300); 
+          controle(-1, 0, 3);
+          break;
+      default:
+          mover(0, 0);
   }
 }

@@ -24,9 +24,8 @@ int IR1, IR2, IR3, IR4, IR5;
 #define SensorCorEsquerda A8
 
 //Constantes
-double UltimoError = 0.0;
 double motorD, motorE;
-double P, I = 0.0, D, ganho;
+double P, I = 0.0, D, ganho = 0.0;
 
 //Velocidade (PWM) da ponte H: 12 V
 int vd = 80;    //Direita
@@ -50,7 +49,7 @@ int ve90 = 100; //Esquerda 90
    * +--------------+----+----+----+-----+--------------------+
    */
   int kP = 1.2;
-  int kI = 0.8;//0.1;
-  int kD = 60.0;//1.0;
-  int PWM = 60;
-  int media = 100;
+  int kI = 0.8; //0.01;
+  int kD = 10.0; //40.0;
+  int PWM = 55;
+  int media = 95;
