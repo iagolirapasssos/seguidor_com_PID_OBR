@@ -31,4 +31,5 @@ void loop(){
   curvas();
   PID(kP, kI, kD, PWM, media);
  //lerSensoresCor();
+ //LedsAlerta(4, 150);
   }

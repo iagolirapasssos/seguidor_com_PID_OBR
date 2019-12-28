@@ -11,7 +11,7 @@ void LedsAlerta(int RGB, int power)
     case 3:
       analogWrite(LedAzul, power);
       break;
-    default:
+    case 4:
       digitalWrite(LedVermelho, LOW);
       digitalWrite(LedVerde, LOW);
       digitalWrite(LedAzul, LOW);
@@ -75,7 +75,8 @@ int lerSensoresCor()
   {
     Serial.println("Verde E1");
     LedsAlerta(2, 150);
-    //pausa(50);
+    pausa(50);
+    LedsAlerta(4, 0);
     return 1;
   }
   
@@ -84,16 +85,18 @@ int lerSensoresCor()
   {
     Serial.println("Curva 90 a esquerda");
     LedsAlerta(3, 150);
-    //pausa(50);
+    pausa(50);
+    LedsAlerta(4, 0);
     return 11;
   }
     
   //Verde direita
-  if(Erro1 > 18 && Erro1 < 35 && Erro2 < 8  && IR3 > 300)
+  if(Erro1 > 15 && Erro1 < 35 && Erro2 < 8  && IR3 > 300)
   {
     Serial.println("Verde D1");
     LedsAlerta(2, 150);
-    //pausa(50);
+    pausa(50);
+    LedsAlerta(4, 0);
     return 2;
   }
 
@@ -102,7 +105,8 @@ int lerSensoresCor()
   {
     Serial.println("Curva 90 a direita");
     LedsAlerta(3, 150);
-    //pausa(50);
+    pausa(50);
+    LedsAlerta(4, 0);
     return 22;
   }
 
@@ -111,7 +115,8 @@ int lerSensoresCor()
   {
     Serial.println("Encruzilhada");
     LedsAlerta(3, 150);
-    //pausa(50);
+    pausa(50);
+    LedsAlerta(4, 0);
     return 111;
   }
 
@@ -120,14 +125,14 @@ int lerSensoresCor()
   {
     Serial.println("T");
     LedsAlerta(3, 150);
-    //pausa(50);
+    pausa(50);
+    LedsAlerta(4, 0);
     return 120;
   }
   else
   {
     return 999;
   }
-  LedsAlerta(4, 150);
 }
 
 
@@ -265,7 +270,8 @@ int x = lerSensoresCor();
           //PID(kP, kI, kD, PWM, media);
           break;
     case 111:
-          mover(100, 100);
+          mover(60, 60);
+          pausa(200);
           break;
     case 11:
         //Frente
@@ -324,7 +330,6 @@ int x = lerSensoresCor();
         //Frente
           controle(1, 0, 4.0);
           mover(0, 0);
-          pausa(300);
             
         //Direita 90
           //controle(0, -1, 14);        
@@ -333,6 +338,7 @@ int x = lerSensoresCor();
           mover(0, 0);
           pausa(300); 
           controle(-1, 0, 3);
+          mover(0, 0);
           break;
       default:
           mover(0, 0);
