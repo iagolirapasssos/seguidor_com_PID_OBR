@@ -81,6 +81,10 @@ int lerSensoresCor()
     LedsAlerta(4, 0);
     return 1;
   }
+  else
+  {
+    return 999;
+  }
   
   //Curva 90 a esquerda
   if(Erro2 > 50 && Erro2 < 380 && Erro1 < 11 && IR3 < 40)
@@ -88,6 +92,10 @@ int lerSensoresCor()
     Serial.println("Curva 90 a esquerda");
     LedsAlerta(3, 150);
     return 11;
+  }
+  else
+  {
+    return 999;
   }
     
   //Verde direita
@@ -99,6 +107,10 @@ int lerSensoresCor()
     LedsAlerta(4, 0);
     return 2;
   }
+  else
+  {
+    return 999;
+  }
 
   //Curva 90 a direita
   if(Erro2 < 8 && Erro1 > 200 && Erro1 < 380 && IR3 < 40)
@@ -107,6 +119,10 @@ int lerSensoresCor()
     LedsAlerta(3, 150);
     return 22;
   }
+  else
+  {
+    return 999;
+  }
 
   //Encruzilhada
   if(Erro2 > 50 && Erro1 > 200 && IR3 > 300)
@@ -114,6 +130,10 @@ int lerSensoresCor()
     Serial.println("Encruzilhada");
     LedsAlerta(3, 150);
     return 111;
+  }
+  else
+  {
+    return 999;
   }
 
   //T
@@ -265,7 +285,7 @@ int x = lerSensoresCor();
   {
     case 999:
           LedsAlerta(4, 150);
-          //PID(kP, kI, kD, PWM, media);
+          PID(kP, kI, kD, PWM, media);
           break;
     case 111:
           mover(60, 60);
@@ -280,21 +300,25 @@ int x = lerSensoresCor();
           mover(0, 0);
           pausa(300);
           
-          controle(1, 0, 5.0);
+          controle(1, 0, 2.0);
           mover(0, 0);
-          pausa(300);
+          pausa(250);
         
         //Esquerda 90
-          controle(0, 1, 17);
+          while(1)
+          {
+            PID(kP, kI, kD, PWM, media);
+            if(lerSensoresCor() == 999) break;
+          }
           mover(0, 0);
-          pausa(300);
-          //PID(kP, kI, kD, PWM, media);
+          pausa(250);
+          
         //Ré
           mover(0, 0);
-          pausa(300);
+          pausa(250);
           controle(-1, 0, 2);
           mover(0, 0);
-          pausa(300);
+          pausa(250);
           break;
     case 1:
         Serial.println("Verde verde verde Esquerda");
@@ -307,16 +331,19 @@ int x = lerSensoresCor();
           pausa(300);
         
         //Esquerda 90
-          controle(0, 1, 16);
+          while(1)
+          {
+            PID(kP, kI, kD, PWM, media);
+            if(lerSensoresCor() == 999) break;
+          }
           mover(0, 0);
-          pausa(300);
-          //PID(kP, kI, kD, PWM, media);
+          pausa(250);
         //Ré
           mover(0, 0);
-          pausa(300);
+          pausa(250);
           controle(-1, 0, 2);
           mover(0, 0);
-          pausa(300);
+          pausa(250);
           break;
     case 2:
         Serial.println("Verde verde verde Direita");
@@ -328,14 +355,21 @@ int x = lerSensoresCor();
           pausa(300);
             
         //Direita 90
-          controle(0, -1, 16);        
+          while(1)
+          {
+            PID(kP, kI, kD, PWM, media);
+            if(lerSensoresCor() == 999) break;
+          }
           mover(0, 0);
-          pausa(300);
-          //PID(kP, kI, kD, PWM, media);
+          pausa(250);
+          
         //Ré 
+          //Ré
+          mover(0, 0);
+          pausa(250);
           controle(-1, 0, 2);
           mover(0, 0);
-          pausa(300);
+          pausa(250);
           break;
      case 22:
           mover(0, 0);
@@ -346,14 +380,20 @@ int x = lerSensoresCor();
           pausa(300);
             
         //Direita 90
-          controle(0, -1, 15);        
+          while(1)
+          {
+            PID(kP, kI, kD, PWM, media);
+            if(lerSensoresCor() == 999) break;
+          }
           mover(0, 0);
-          pausa(300);
-          //PID(kP, kI, kD, PWM, media);
-        //Ré 
-          controle(-1, 0, 1);
+          pausa(250);
+          
+        //Ré
           mover(0, 0);
-          pausa(300);
+          pausa(250);
+          controle(-1, 0, 2);
+          mover(0, 0);
+          pausa(250);
           break;
   }
 }
