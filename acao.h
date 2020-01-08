@@ -60,98 +60,6 @@ long SensoresDeCor()
   return (C1 + C2)/2;
 }
 
-int lerSensoresCor()
-{
-  sensoresIR();
-  
-  long  Erro1 = abs(IR1 - IR2); //Sensores IR Direita
-  long  Erro2 = abs(IR4 - IR5); //Sensores IR Esquerda
-
-//  Serial.print(Erro1);
-//  Serial.print(", ");
-//  Serial.print(Erro2);
-//  Serial.println("");
-  
-  //Verde esquerdo
-  if(Erro2 > 10 && Erro2 < 14 && Erro1 < 13 && IR3 > 300)
-  {
-    Serial.println("Verde E1");
-    LedsAlerta(2, 150);
-    pausa(50);
-    LedsAlerta(4, 0);
-    return 1;
-  }
-  else
-  {
-    return 999;
-  }
-  
-  //Curva 90 a esquerda
-  if(Erro2 > 50 && Erro2 < 380 && Erro1 < 11 && IR3 < 40)
-  {
-    Serial.println("Curva 90 a esquerda");
-    LedsAlerta(3, 150);
-    return 11;
-  }
-  else
-  {
-    return 999;
-  }
-    
-  //Verde direita
-  if(Erro1 > 15 && Erro1 < 35 && Erro2 < 8  && IR3 > 300)
-  {
-    Serial.println("Verde D1");
-    LedsAlerta(2, 150);
-    pausa(50);
-    LedsAlerta(4, 0);
-    return 2;
-  }
-  else
-  {
-    return 999;
-  }
-
-  //Curva 90 a direita
-  if(Erro2 < 8 && Erro1 > 200 && Erro1 < 380 && IR3 < 40)
-  {
-    Serial.println("Curva 90 a direita");
-    LedsAlerta(3, 150);
-    return 22;
-  }
-  else
-  {
-    return 999;
-  }
-
-  //Encruzilhada
-  if(Erro2 > 50 && Erro1 > 200 && IR3 > 300)
-  {
-    Serial.println("Encruzilhada");
-    LedsAlerta(3, 150);
-    return 111;
-  }
-  else
-  {
-    return 999;
-  }
-
-  //T
-  if(Erro2 > 50 && Erro1 > 200 && IR3 < 200)
-  {
-    Serial.println("T");
-    LedsAlerta(3, 150);
-    return 120;
-  }
-  else
-  {
-    return 999;
-  }
-
-  LedsAlerta(4, 0);
-}
-
-
 void mover(int a, int b) {
   if (a > 0) {
     analogWrite(MotorEsquerdoFrente, a);
@@ -178,7 +86,6 @@ void mover(int a, int b) {
     analogWrite(MotorDireitoTras, abs(b));
   }
 }
-
 
 void controle(int x, int y, int n){
   /* Tensão de teste: ~12 V e 9800 mA
@@ -250,6 +157,99 @@ void controle(int x, int y, int n){
     }
   }
 }
+
+long erro1(){
+  sensoresIR();
+  return abs(IR1 - IR2); //Sensores IR Direita  
+}
+
+long erro2(){
+  sensoresIR();
+  return abs(IR4 - IR5); //Sensores IR Esquerda
+}
+
+int lerSensoresCor()
+{  
+  long Erro1 = erro1();
+  long Erro2 = erro2();
+  
+  Serial.print(Erro1);
+  Serial.print(", ");
+  Serial.print(Erro2);
+  Serial.print(", ");
+  Serial.print(IR3);
+  Serial.println("");
+  
+  //Verde esquerdo
+  if(Erro2 > 8 && Erro2 < 11 && Erro1 < 13 && IR3 > 200)
+  {
+    controle(1, 0, 1);
+    pausa(50);
+    long Erro1 = erro1();
+    long Erro2 = erro2();
+    
+    if(Erro2 > 8 && Erro2 < 11 && Erro1 < 13 && IR3 > 200)
+    {  
+      Serial.println("Verde E1");
+      LedsAlerta(2, 150);
+      pausa(50);
+      LedsAlerta(4, 0);
+      return 1;
+    }
+  }
+  //Curva 90 a esquerda
+  else if(Erro2 > 50 && Erro2 < 380 && Erro1 < 11 && IR3 < 40)
+  {
+    Serial.println("Curva 90 a esquerda");
+    LedsAlerta(3, 150);
+    return 11;
+  }
+  //Verde direita
+  else if(Erro1 > 15 && Erro1 < 18 && Erro2 < 8  && IR3 > 200)
+  {
+    controle(1, 0, 1);
+    pausa(50);
+    long Erro1 = erro1();
+    long Erro2 = erro2();
+    
+    if(Erro1 > 15 && Erro1 < 18 && Erro2 < 8  && IR3 > 200)
+    {
+      Serial.println("Verde D1");
+      LedsAlerta(2, 150);
+      pausa(50);
+      LedsAlerta(4, 0);
+      return 2;
+    }
+  }
+  //Curva 90 a direita
+  else if(Erro2 < 8 && Erro1 > 200 && Erro1 < 380 && IR3 < 40)
+  {
+    Serial.println("Curva 90 a direita");
+    LedsAlerta(3, 150);
+    return 22;
+  }
+  //Encruzilhada
+  else if(Erro2 > 50 && Erro1 > 200 && IR3 > 300)
+  {
+    Serial.println("Encruzilhada");
+    LedsAlerta(3, 150);
+    return 111;
+  }
+  //T
+  else if(Erro2 > 50 && Erro1 > 200 && IR3 < 200)
+  {
+    Serial.println("T");
+    LedsAlerta(3, 150);
+    return 120;
+  }
+  else
+  {
+    return 999;
+  }
+
+  LedsAlerta(4, 0);
+}
+
 
 int UltimoError = 0;
 int Ilast = 0;

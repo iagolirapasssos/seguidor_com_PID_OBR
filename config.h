@@ -53,5 +53,5 @@ int ve90 = 120; //Esquerda 90
   int kP = 1.2;
   int kI = 0.8; //0.01;
   int kD = 0.5; //40.0;
-  int PWM = 45;
+  int PWM = 60;
   int media = 96;
