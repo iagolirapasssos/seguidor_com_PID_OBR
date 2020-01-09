@@ -53,8 +53,22 @@ int ve90 = 100; //Esquerda 90
   int kP = 1.2;
   int kI = 0.8; //0.01;
   int kD = 0.5; //40.0;
-  int PWM = 60;
+  int PWM = 50;
   int media = 96;
+
+/*ERROS:
+   * Declaração de dois vetores com valores
+   * mínimos e máximos dos erros.
+   * 
+   * Ordem dos valores: {Erro2min, Erro2max, Erro1min, Erro1max}
+   */
+
+  int ErrosVerdeEsquerda[4] = {8, 11, 0, 13};
+  int ErrosVerdeDireita[4] = {0, 8, 15, 18};
+  int Erros90Esquerda[4] = {30, 600, 0, 11};
+  int Erros90Direita[4] = {0, 8, 30, 600};
+  int ErrosEncruzilhada[4] = {0, 50, 0, 200};
+  int ErrosT[4] = {0, 50, 0, 200};
 
 void setup() {
   //Comunicação serial
