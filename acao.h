@@ -4,11 +4,9 @@
 unsigned long pausa(int tempo){
 unsigned long time_now = 0;
   time_now = millis();
-   
-   
-    while(millis() < time_now + tempo){
-        //Espera em ms
-    }
+  
+    while(millis() < time_now + tempo){} //Espera em ms
+    
 }
 
 void LedsAlerta(int RGB, int power)

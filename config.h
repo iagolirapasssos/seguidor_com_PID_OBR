@@ -52,7 +52,7 @@ int ve90 = 100; //Esquerda 90
    */
   int kP = 1.2;
   int kI = 0.8; //0.01;
-  int kD = 0.5; //40.0;
+  int kD = 0.0; //40.0;
   int PWM = 50;
   int media = 96;
 
@@ -69,6 +69,10 @@ int ve90 = 100; //Esquerda 90
   int Erros90Direita[4] = {0, 8, 30, 600};
   int ErrosEncruzilhada[4] = {0, 50, 0, 200};
   int ErrosT[4] = {0, 50, 0, 200};
+
+  //Constantes para seguir em frente nas curvas em 90
+  int m1 = 10; 
+  int m2 = 10;
 
 void setup() {
   //Comunicação serial

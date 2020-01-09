@@ -6,13 +6,6 @@ int lerSensoresCor()
   long Erro1 = erro1(); //Sensores da direita
   long Erro2 = erro2(); //Sensores da esquerda
   
-  Serial.print(Erro1);
-  Serial.print(", ");
-  Serial.print(Erro2);
-  Serial.print(", ");
-  Serial.print(IR3);
-  Serial.println("");
-  
 //Verificar se foi detectado VERDE no lado ESQUERDO
   if(Erro2 > ErrosVerdeEsquerda[0] && Erro2 < ErrosVerdeEsquerda[1] && 
      Erro1 < ErrosVerdeEsquerda[3] && IR3 > 200)
@@ -161,7 +154,7 @@ void curvas90Direita()
           //LOOP 1: Ir para frente enquanto a função não retorna 999
           while(1)
           {
-            controle(1, 0, 10.0);
+            controle(1, 0, m1);
             if(lerSensoresCor() == 999) break;
           }
           
@@ -201,7 +194,7 @@ void curvas90Esquerda()
           //LOOP 1: Ir para frente enquanto a função não retorna 999
           while(1)
           {
-            controle(1, 0, 10.0);
+            controle(1, 0, m2);
             if(lerSensoresCor() == 999) break;
           }
           
