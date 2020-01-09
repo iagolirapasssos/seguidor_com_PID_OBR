@@ -1,6 +1,9 @@
-#include "Arduino.h"
+#include <Arduino.h>
 #include "config.h"
+#include "leitura.h"
 #include "acao.h"
+#include "controle.h"
+#include "curvas.h"
 
      
 void loop(){
