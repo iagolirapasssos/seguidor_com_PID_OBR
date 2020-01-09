@@ -34,8 +34,8 @@ int vd = 80;    //Direita
 int ve = 80;    //Esquerda
 int vf = 100;    //Frente
 int vr = 100;    //Ré
-int vd90 = 120; //Direita 90
-int ve90 = 120; //Esquerda 90
+int vd90 = 100; //Direita 90
+int ve90 = 100; //Esquerda 90
 
 //PID
 /*

@@ -6,7 +6,7 @@
 void loop(){
   //Serial.println(lerSensoresLinha());
   curvas();
-  PID(kP, kI, kD, PWM, media);
+  //PID(kP, kI, kD, PWM, media);
  //lerSensoresCor();
  //LedsAlerta(4, 150);
 }
