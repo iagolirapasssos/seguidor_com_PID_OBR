@@ -55,3 +55,26 @@ int ve90 = 120; //Esquerda 90
   int kD = 0.5; //40.0;
   int PWM = 60;
   int media = 96;
+
+void setup() {
+  //Comunicação serial
+  Serial.begin(9600);
+
+  //Ponte H
+  pinMode(MotorDireitoFrente, OUTPUT);
+  pinMode(MotorDireitoTras, OUTPUT);
+  pinMode(MotorEsquerdoFrente, OUTPUT);
+  pinMode(MotorEsquerdoTras, OUTPUT);
+
+  //Sensores de linha
+  pinMode(sensorDireita, INPUT);
+  pinMode(sensorDireitaMeio, INPUT);
+  pinMode(Meio, INPUT);
+  pinMode(sensorEsquerda, INPUT);
+  pinMode(sensorEsquerdaMeio, INPUT);
+
+  //Leds de alerta
+  pinMode(LedVermelho, OUTPUT);
+  pinMode(LedVerde, OUTPUT);
+  pinMode(LedAzul, OUTPUT);
+};
