@@ -10,5 +10,6 @@ void loop(){
   
   curvas();
   //PID(kP, kI, kD, PWM, media);
+  //Serial.println(lerSensoresLinha());
   //testeErro();
 }

@@ -53,8 +53,8 @@ int ve90 = 100; //Esquerda 90
   int kP = 1.2;
   int kI = 0.8; //0.01;
   int kD = 0.0; //40.0;
-  int PWM = 50;
-  int media = 96;
+  int PWM = 60;
+  int media = 100;
 
 /*ERROS:
    * Declaração de dois vetores com valores
@@ -63,8 +63,8 @@ int ve90 = 100; //Esquerda 90
    * Ordem dos valores: {Erro2min, Erro2max, Erro1min, Erro1max}
    */
 
-  int ErrosVerdeEsquerda[4] = {8, 11, 0, 13};
-  int ErrosVerdeDireita[4] = {0, 8, 15, 18};
+  int ErrosVerdeEsquerda[4] = {5, 15, 0, 8};
+  int ErrosVerdeDireita[4] = {0, 9, 8, 25};
   int Erros90Esquerda[4] = {30, 600, 0, 11};
   int Erros90Direita[4] = {0, 8, 30, 600};
   int ErrosEncruzilhada[4] = {0, 50, 0, 200};

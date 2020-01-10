@@ -13,6 +13,9 @@ int lerSensoresCor()
       mover(0, 0);
       pausa(400);
       controle(1, 0, 0);
+      mover(0, 0);
+      pausa(400);
+      
       long Erro1 = erro1();
       long Erro2 = erro2();
       
@@ -27,24 +30,24 @@ int lerSensoresCor()
         }
   }
 //Verificar se foi detectado VERDE no lado DIREITO
-  else if(Erro2 < ErrosVerdeDireita[1] && 
-          Erro1 > ErrosVerdeDireita[2] && Erro1 < ErrosVerdeDireita[3] && IR3 > 200)
+  else if(Erro2 > ErrosVerdeDireita[0] && Erro2 < ErrosVerdeDireita[1] && 
+          Erro1 < ErrosVerdeDireita[3] && IR3 > 200)
   {
       mover(0, 0);
       pausa(400);
       controle(1, 0, 0);
+      mover(0, 0);
+      pausa(400);
+      
       long Erro1 = erro1();
       long Erro2 = erro2();
-  
-      mover(0, 0);
-      pausa(500);
       
         if(Erro2 < ErrosVerdeDireita[1] && 
           Erro1 > ErrosVerdeDireita[2] && Erro1 < ErrosVerdeDireita[3] && IR3 > 200)
         {
             Serial.println("Verde D1");
             LedsAlerta(2, 150);
-            delay(300);
+            delay(500);
             LedsAlerta(4, 0);
             return 2;
         }
@@ -171,7 +174,7 @@ void curvas90Direita()
             //PID(kP, kI, kD, PWM, media);
             controle(0, -1, 0.0);
             sensoresIR();
-            if(IR3 > 200) break;
+            if(IR3 > 100) break;
             //if(lerSensoresCor() == 999) break;
           }
 
@@ -211,7 +214,7 @@ void curvas90Esquerda()
             //PID(kP, kI, kD, PWM, media);
             controle(0, 1, 0.0);
             sensoresIR();
-            if(IR3 > 200) break;
+            if(IR3 > 100) break;
             //if(lerSensoresCor() == 999) break;
           }
           
@@ -229,11 +232,11 @@ void curvas()
 switch (lerSensoresCor())
 {
 case 1:
-    Serial.println("Verde verde verde Esquerda");
+    //Serial.println("Verde verde verde Esquerda");
     curvas90Esquerda();
     break;
 case 2:
-    Serial.println("Verde verde verde Direita");
+    //Serial.println("Verde verde verde Direita");
     curvas90Direita();
     break;
 case 11:
