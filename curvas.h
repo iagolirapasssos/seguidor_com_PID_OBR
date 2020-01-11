@@ -174,7 +174,11 @@ void curvas90Direita()
             //PID(kP, kI, kD, PWM, media);
             controle(0, -1, 0.0);
             sensoresIR();
-            if(IR3 > 100) break;
+            if(IR3 > 180) {
+              mover(0, 0);
+              pausa(400); 
+              break; 
+            }
             //if(lerSensoresCor() == 999) break;
           }
 
@@ -214,7 +218,11 @@ void curvas90Esquerda()
             //PID(kP, kI, kD, PWM, media);
             controle(0, 1, 0.0);
             sensoresIR();
-            if(IR3 > 100) break;
+            if(IR3 > 180) {
+              mover(0, 0);
+              pausa(400); 
+              break; 
+            }
             //if(lerSensoresCor() == 999) break;
           }
           
@@ -232,11 +240,9 @@ void curvas()
 switch (lerSensoresCor())
 {
 case 1:
-    //Serial.println("Verde verde verde Esquerda");
     curvas90Esquerda();
     break;
 case 2:
-    //Serial.println("Verde verde verde Direita");
     curvas90Direita();
     break;
 case 11:

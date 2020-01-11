@@ -63,12 +63,12 @@ int ve90 = 100; //Esquerda 90
    * Ordem dos valores: {Erro2min, Erro2max, Erro1min, Erro1max}
    */
 
-  int ErrosVerdeEsquerda[4] = {5, 15, 0, 8};
-  int ErrosVerdeDireita[4] = {0, 9, 8, 25};
-  int Erros90Esquerda[4] = {30, 600, 0, 11};
-  int Erros90Direita[4] = {0, 8, 30, 600};
-  int ErrosEncruzilhada[4] = {0, 50, 0, 200};
-  int ErrosT[4] = {0, 50, 0, 200};
+  int ErrosVerdeEsquerda[4] = {5, 16, 4, 9};
+  int ErrosVerdeDireita[4] = {0, 3, 0, 4};
+  int Erros90Esquerda[4] = {20, 1023, 4, 9};
+  int Erros90Direita[4] = {0, 3, 20, 1023};
+  int ErrosEncruzilhada[4] = {0, 20, 0, 20};
+  int ErrosT[4] = {0, 20, 0, 20};
 
   //Constantes para seguir em frente nas curvas em 90
   int m1 = 10; 
