@@ -8,7 +8,7 @@ int lerSensoresCor()
   
 //Verificar se foi detectado VERDE no lado ESQUERDO
   if(Erro2 > ErrosVerdeEsquerda[0] && Erro2 < ErrosVerdeEsquerda[1] && 
-     Erro1 < ErrosVerdeEsquerda[3] && IR3 > 200)
+     Erro1 > ErrosVerdeEsquerda[2] && Erro1 < ErrosVerdeEsquerda[3] && IR3 > 100)
   {
       mover(0, 0);
       pausa(400);
@@ -20,18 +20,18 @@ int lerSensoresCor()
       long Erro2 = erro2();
       
         if(Erro2 > ErrosVerdeEsquerda[0] && Erro2 < ErrosVerdeEsquerda[1] && 
-           Erro1 < ErrosVerdeEsquerda[3] && IR3 > 200)
+           Erro1 > ErrosVerdeEsquerda[2] && Erro1 < ErrosVerdeEsquerda[3] && IR3 > 100)
         {  
           Serial.println("Verde E1");
-          LedsAlerta(2, 150);
+          LedsAlerta(2, 500);
           delay(500);
-          LedsAlerta(4, 0);
+          //LedsAlerta(4, 0);
           return 1;
         }
   }
 //Verificar se foi detectado VERDE no lado DIREITO
   else if(Erro2 > ErrosVerdeDireita[0] && Erro2 < ErrosVerdeDireita[1] && 
-          Erro1 < ErrosVerdeDireita[3] && IR3 > 200)
+          Erro1 > ErrosVerdeDireita[2] && Erro1 < ErrosVerdeDireita[3] && IR3 > 100)
   {
       mover(0, 0);
       pausa(400);
@@ -42,20 +42,20 @@ int lerSensoresCor()
       long Erro1 = erro1();
       long Erro2 = erro2();
       
-        if(Erro2 < ErrosVerdeDireita[1] && 
-          Erro1 > ErrosVerdeDireita[2] && Erro1 < ErrosVerdeDireita[3] && IR3 > 200)
+        if(Erro2 > ErrosVerdeDireita[0] && Erro2 < ErrosVerdeDireita[1] && 
+           Erro1 > ErrosVerdeDireita[2] && Erro1 < ErrosVerdeDireita[3] && IR3 > 100)
         {
             Serial.println("Verde D1");
-            LedsAlerta(2, 150);
+            LedsAlerta(2, 500);
             delay(500);
-            LedsAlerta(4, 0);
+            //LedsAlerta(4, 0);
             return 2;
         }
   }
   
   //Curva 90 a ESQUERDA
   else if(Erro2 > Erros90Esquerda[0] && Erro2 < Erros90Esquerda[1] && 
-          Erro1 < Erros90Esquerda[3] && IR3 < 40)
+          Erro1 > Erros90Esquerda[2] && Erro1 < Erros90Esquerda[3] && IR3 < 40)
   {
       mover(0, 0);
       pausa(400);
@@ -67,7 +67,7 @@ int lerSensoresCor()
       long Erro2 = erro2();
   
       if(Erro2 > Erros90Esquerda[0] && Erro2 < Erros90Esquerda[1] && 
-            Erro1 < Erros90Esquerda[3] && IR3 < 40)
+            Erro1 > Erros90Esquerda[2] && Erro1 < Erros90Esquerda[3] && IR3 < 40)
       {
           Serial.println("Curva 90 a esquerda");
           LedsAlerta(3, 150);
@@ -77,7 +77,7 @@ int lerSensoresCor()
   }
   
   //Curva 90 a DIREITA
-  else if(Erro2 < Erros90Direita[1] && 
+  else if(Erro2 > Erros90Direita[0] && Erro2 < Erros90Direita[1] && 
           Erro1 > Erros90Direita[2] && Erro1 < Erros90Direita[3] && IR3 < 40)
   {
       mover(0, 0);
@@ -89,7 +89,7 @@ int lerSensoresCor()
       long Erro1 = erro1();
       long Erro2 = erro2();
   
-      if(Erro2 < Erros90Direita[1] && 
+      if(Erro2 > Erros90Direita[0] && Erro2 < Erros90Direita[1] && 
          Erro1 > Erros90Direita[2] && Erro1 < Erros90Direita[3] && IR3 < 40)
       {
           Serial.println("Curva 90 a direita");
@@ -100,7 +100,7 @@ int lerSensoresCor()
   }
   
   //Encruzilhada
-  else if(Erro2 > ErrosEncruzilhada[1] && Erro1 > ErrosEncruzilhada[3] && IR3 > 300)
+  else if(Erro2 > ErrosEncruzilhada[0] && Erro1 > ErrosEncruzilhada[2] && IR3 > 100)
   {
     mover(0, 0);
     pausa(400);
@@ -111,16 +111,16 @@ int lerSensoresCor()
     long Erro1 = erro1();
     long Erro2 = erro2();
 
-    if(Erro2 > ErrosEncruzilhada[1] && Erro1 > ErrosEncruzilhada[3] && IR3 > 300)
+    if(Erro2 > ErrosEncruzilhada[0] && Erro1 > ErrosEncruzilhada[2] && IR3 > 100)
     {
       Serial.println("Encruzilhada");
-      LedsAlerta(3, 150);
+      LedsAlerta(3, 500);
       delay(500);
       return 111;
     }
   }
   //T
-  else if(Erro2 > ErrosT[1] && Erro1 > ErrosT[3] && IR3 < 200)
+  else if(Erro2 > ErrosT[0] && Erro1 > ErrosT[2] && IR3 < 200)
   {
     mover(0, 0);
     pausa(400);
@@ -131,10 +131,10 @@ int lerSensoresCor()
     long Erro1 = erro1();
     long Erro2 = erro2();
 
-    if(Erro2 > ErrosT[1] && Erro1 > ErrosT[3] && IR3 < 200)
+    if(Erro2 > ErrosT[0] && Erro1 > ErrosT[2] && IR3 < 200)
     {
       Serial.println("T");
-      LedsAlerta(3, 150);
+      LedsAlerta(3, 500);
       return 120;
     }
   }
@@ -260,7 +260,7 @@ case 120:
     pausa(200);
     break;
 case 999:
-    LedsAlerta(4, 0);
+    //LedsAlerta(4, 150);
     PID(kP, kI, kD, PWM, media);
     break;
 }};
