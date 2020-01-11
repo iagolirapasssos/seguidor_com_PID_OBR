@@ -36,8 +36,8 @@ void mover(int a, int b) {
     analogWrite(MotorEsquerdoTras, 0);
   }
   else if (a == 0) {
-    analogWrite(MotorEsquerdoFrente, 5);
-    analogWrite(MotorEsquerdoTras, 5);
+    analogWrite(MotorEsquerdoFrente, 1);
+    analogWrite(MotorEsquerdoTras, 1);
   }
   else {
     analogWrite(MotorEsquerdoFrente, 0);
@@ -48,8 +48,8 @@ void mover(int a, int b) {
     analogWrite(MotorDireitoTras, 0);
   }
   else if (b == 0) {
-    analogWrite(MotorDireitoFrente, 5);
-    analogWrite(MotorDireitoTras, 5);
+    analogWrite(MotorDireitoFrente, 1);
+    analogWrite(MotorDireitoTras, 1);
   }
   else {
     analogWrite(MotorDireitoFrente, 0);

@@ -136,11 +136,16 @@ void curvas90Direita()
           pausa(500);
        
           //LOOP 1: Ir para frente enquanto a função não retorna 999
-          while(1)
-          {
+         // while(1)
+          //{
+            mover(0, 0);
+            pausa(300);
             controle(1, 0, m1);
-            if(lerSensoresCor() == 999) break;
-          }
+            mover(0, 0);
+            pausa(300);
+            //break;
+            //if(lerSensoresCor() == 999) break;
+          //}
           
           //Pausa real de 500 ms
           mover(0, 0);
@@ -155,12 +160,12 @@ void curvas90Direita()
             //PID(kP, kI, kD, PWM, media);
             controle(0, -1, 0.0);
             sensoresIR();
-            if(IR3 > 180) {
+            if(IR3 > 100) {
               mover(0, 0);
               pausa(400); 
               break; 
             }
-            //if(lerSensoresCor() == 999) break;
+            
           }
 
         //Voltar um pouco
@@ -180,11 +185,16 @@ void curvas90Esquerda()
           pausa(500);
        
           //LOOP 1: Ir para frente enquanto a função não retorna 999
-          while(1)
-          {
+          //while(1)
+          //{
+            mover(0, 0);
+            pausa(300);
             controle(1, 0, m2);
-            if(lerSensoresCor() == 999) break;
-          }
+            mover(0, 0);
+            pausa(300);
+            //break;
+            //if(lerSensoresCor() == 999) break;
+          //}
           
           //Pausa real de 500 ms
           mover(0, 0);
@@ -199,7 +209,7 @@ void curvas90Esquerda()
             //PID(kP, kI, kD, PWM, media);
             controle(0, 1, 0.0);
             sensoresIR();
-            if(IR3 > 180) {
+            if(IR3 > 100) {
               mover(0, 0);
               pausa(400); 
               break; 
