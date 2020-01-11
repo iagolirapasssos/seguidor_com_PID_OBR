@@ -22,10 +22,6 @@ int lerSensoresCor()
         if(Erro2 > ErrosVerdeEsquerda[0] && Erro2 < ErrosVerdeEsquerda[1] && 
            Erro1 > ErrosVerdeEsquerda[2] && Erro1 < ErrosVerdeEsquerda[3] && IR3 > 100)
         {  
-          Serial.println("Verde E1");
-          LedsAlerta(2, 500);
-          delay(500);
-          //LedsAlerta(4, 0);
           return 1;
         }
   }
@@ -45,10 +41,6 @@ int lerSensoresCor()
         if(Erro2 > ErrosVerdeDireita[0] && Erro2 < ErrosVerdeDireita[1] && 
            Erro1 > ErrosVerdeDireita[2] && Erro1 < ErrosVerdeDireita[3] && IR3 > 100)
         {
-            Serial.println("Verde D1");
-            LedsAlerta(2, 500);
-            delay(500);
-            //LedsAlerta(4, 0);
             return 2;
         }
   }
@@ -69,9 +61,6 @@ int lerSensoresCor()
       if(Erro2 > Erros90Esquerda[0] && Erro2 < Erros90Esquerda[1] && 
             Erro1 > Erros90Esquerda[2] && Erro1 < Erros90Esquerda[3] && IR3 < 40)
       {
-          Serial.println("Curva 90 a esquerda");
-          LedsAlerta(3, 150);
-          delay(500);
           return 11;
       }
   }
@@ -92,9 +81,6 @@ int lerSensoresCor()
       if(Erro2 > Erros90Direita[0] && Erro2 < Erros90Direita[1] && 
          Erro1 > Erros90Direita[2] && Erro1 < Erros90Direita[3] && IR3 < 40)
       {
-          Serial.println("Curva 90 a direita");
-          LedsAlerta(3, 150);
-          delay(500);
           return 22;
       }
   }
@@ -113,9 +99,6 @@ int lerSensoresCor()
 
     if(Erro2 > ErrosEncruzilhada[0] && Erro1 > ErrosEncruzilhada[2] && IR3 > 100)
     {
-      Serial.println("Encruzilhada");
-      LedsAlerta(3, 500);
-      delay(500);
       return 111;
     }
   }
@@ -133,8 +116,6 @@ int lerSensoresCor()
 
     if(Erro2 > ErrosT[0] && Erro1 > ErrosT[2] && IR3 < 200)
     {
-      Serial.println("T");
-      LedsAlerta(3, 500);
       return 120;
     }
   }
@@ -185,7 +166,7 @@ void curvas90Direita()
         //Voltar um pouco
           mover(0, 0);
           pausa(400);
-          controle(-1, 0, 4.0);
+          controle(-1, 0, 10);
           mover(0, 0);
           pausa(400);
 }
@@ -229,7 +210,7 @@ void curvas90Esquerda()
         //Voltar um pouco
           mover(0, 0);
           pausa(400);
-          controle(-1, 0, 4.0);
+          controle(-1, 0, 10);
           mover(0, 0);
           pausa(400);
 }
@@ -240,27 +221,44 @@ void curvas()
 switch (lerSensoresCor())
 {
 case 1:
+    Serial.println("Verde esquerda");
+    LedsAlerta(2, 150);
+    delay(300);
     curvas90Esquerda();
     break;
 case 2:
+    Serial.println("Verde direita");
+    LedsAlerta(2, 150);
+    delay(300);
     curvas90Direita();
     break;
 case 11:
+    Serial.println("Curva 90 a esquerda");
+    LedsAlerta(3, 150);
+    delay(300);
     curvas90Esquerda();
     break;
 case 22:
+    Serial.println("Curva 90 a direita");
+    LedsAlerta(3, 150);
+    delay(300);
     curvas90Direita();
     break;
 case 111:
+    Serial.println("Encruzilhada");
+    LedsAlerta(3, 150);
+    delay(300);
     mover(60, 60);
     pausa(200);
     break;
 case 120:
+    Serial.println("T");
+    LedsAlerta(3, 150);
     mover(60, 60);
     pausa(200);
     break;
 case 999:
-    //LedsAlerta(4, 150);
+    LedsAlerta(4, 150);
     PID(kP, kI, kD, PWM, media);
     break;
 }};

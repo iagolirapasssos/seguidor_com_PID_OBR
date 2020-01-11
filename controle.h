@@ -20,7 +20,7 @@ void controle(int x, int y, int n){
    * x = 1 e y = 0 => Frente
    * x = -1 e y = 0 => ré
    */
-   int temp = 20;
+   int temp = 5;
 
   if(x == 0 && y == 1) 
   {
@@ -53,7 +53,7 @@ void controle(int x, int y, int n){
     {
         mover(vf, vf);
         pausa(temp);
-        mover(0,0);
+        mover(0, 0);
         count2+=1;
     }
   }

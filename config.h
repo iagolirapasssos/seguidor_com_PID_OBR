@@ -74,8 +74,8 @@ int ve90 = 100; //Esquerda 90
   int ErrosT[4] = {20, 0, 20, 0};
 
   //Constantes para seguir em frente nas curvas em 90
-  int m1 = 10; 
-  int m2 = 10;
+  int m1 = 45; 
+  int m2 = 55;
 
 void setup() {
   //Comunicação serial
